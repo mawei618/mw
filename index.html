@@ -21,6 +21,22 @@
             margin: auto;
             border: 1px solid #ccc;
         }
+
+        .NameSpan,.MoneySpan{
+            display: inline-block;
+            width: 50px;
+            text-align: center;
+        }
+        .IndexSpan{
+            display: inline-block;
+            width:20px;
+            text-align: center;
+        }
+        .FromSpan{
+            display: inline-block;
+            width:50px;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -50,13 +66,13 @@
         <div class="All">
             <div v-for="(item,index) in PartJson">
                 <p>
-                    <span>{{index + 1}}</span>-----
-                    <span>{{item.name}}</span>-----
-                    <span>{{item.money}}</span>-----
-                    <span v-if="item.moneyfrom == 0">微信</span>
-                    <span v-if="item.moneyfrom == 1">支付宝</span>
-                    <span v-if="item.moneyfrom == 2">QQ</span>
-                    <span v-if="item.moneyfrom == 3">现金</span>
+                    <span class="IndexSpan">{{index + 1}}</span>-----
+                    <span class="NameSpan">{{item.name}}</span>-----
+                    <span class="MoneySpan">{{item.money}}</span>-----
+                    <span class="FromSpan" v-if="item.moneyfrom == 0">微信</span>
+                    <span class="FromSpan" v-if="item.moneyfrom == 1">支付宝</span>
+                    <span class="FromSpan" v-if="item.moneyfrom == 2">QQ</span>
+                    <span class="FromSpan" v-if="item.moneyfrom == 3">现金</span>
                 </p>
             </div>
         </div>
