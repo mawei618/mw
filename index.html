@@ -1,10 +1,53 @@
 <html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
-        <meta charset="utf-8">
-    </head>
-    <body>
-        <h3 style="width: 100%">hello world!!!</h3>
-        <p>你好，世界</p>
-    </body>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+    <meta charset="utf-8">
+    <style>
+        div,h3{
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h3>共收入：{{ToltleMoney}}元</h3>
+
+        <div v-for="(item,index) in PartJson">
+            <p>
+                <span>{{item.id}}</span>-----
+                <span>{{item.name}}</span>-----
+                <span>{{item.money}}</span>
+            </p>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="./Part.js"></script>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            PartJson: PartJson,
+            ToltleMoney: "",
+        },
+        methods: {
+            CountMoney() {
+                var money = 0;
+                for (var i = 0; i < PartJson.length; i++) {
+                    money += PartJson[i].money;
+                }
+                this.ToltleMoney = money;
+            }
+        },
+        created(){
+            this.CountMoney();
+        }
+    })
+
+</script>
+
+
 </html>
