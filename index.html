@@ -20,7 +20,6 @@
 
 <body>
     <div id="app">
-        <h3>共收入：{{ToltleMoney}}元({{PartJson.length}}人)</h3>
 
         <input type="text" placeholder="名字搜索" v-model="SearchText"><button @click="Search">搜索</button>
 
@@ -40,6 +39,7 @@
             <button @click="FilterMoneyFrom(2)">QQ</button>
             <button @click="FilterMoneyFrom(3)">现金</button>
         </div>
+        <h6>共收入：{{ToltleMoney}}元({{PartJson.length}}人)</h6>
 
         <div class="All">
             <div v-for="(item,index) in PartJson">
