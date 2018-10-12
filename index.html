@@ -4,24 +4,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
     <meta charset="utf-8">
     <style>
-        div,h3{
+        div,
+        h3 {
             width: 100%;
             text-align: center;
+        }
+
+        .All {
+            width: 300px;
+            height: 400px;
+            overflow: scroll;
         }
     </style>
 </head>
 
 <body>
     <div id="app">
-        <h3>共收入：{{ToltleMoney}}元</h3>
+        <h3>共收入：{{ToltleMoney}}元({{PartJson.length}}人)</h3>
 
-        <div v-for="(item,index) in PartJson">
-            <p>
-                <span>{{item.id}}</span>-----
-                <span>{{item.name}}</span>-----
-                <span>{{item.money}}</span>
-            </p>
+        <input type="text" placeholder="名字搜索" v-model="SearchText"><button @click="Search">搜索</button>
+
+        <div class="Filter">
+            <p>交际圈筛选</p>
+            <button @click="GetAll">所有</button>
+            <button @click="FilterSeach(0)">村里</button>
+            <button @click="FilterSeach(1)">初中同学</button>
+            <button @click="FilterSeach(2)">石家庄同学</button>
+            <button @click="FilterSeach(3,4)">保定北京</button>
         </div>
+
+        <div class="Filter">
+            <p>礼金来源</p>
+            <button @click="FilterMoneyFrom(0)">微信</button>
+            <button @click="FilterMoneyFrom(1)">支付宝</button>
+            <button @click="FilterMoneyFrom(2)">QQ</button>
+            <button @click="FilterMoneyFrom(3)">现金</button>
+        </div>
+
+        <div class="All">
+            <div v-for="(item,index) in PartJson">
+                <p>
+                    <span>{{index}}</span>-----
+                    <span>{{item.name}}</span>-----
+                    <span>{{item.money}}</span>-----
+                    <span v-if="item.moneyfrom == 0">微信</span>
+                    <span v-if="item.moneyfrom == 1">支付宝</span>
+                    <span v-if="item.moneyfrom == 2">QQ</span>
+                    <span v-if="item.moneyfrom == 3">现金</span>
+                </p>
+            </div>
+        </div>
+
     </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -30,23 +63,61 @@
     var app = new Vue({
         el: '#app',
         data: {
+            SearchText: "",
             PartJson: PartJson,
             ToltleMoney: "",
         },
         methods: {
-            CountMoney() {
+            CountMoney(par) {
                 var money = 0;
-                for (var i = 0; i < PartJson.length; i++) {
-                    money += PartJson[i].money;
+                for (var i = 0; i < this.PartJson.length; i++) {
+                    money += this.PartJson[i].money;
                 }
                 this.ToltleMoney = money;
+            },
+            
+            Search(){
+                var Arry = [];
+                for (var i = 0; i < PartJson.length; i++) {
+                    if(PartJson[i].name == this.SearchText){
+                        Arry.push(PartJson[i])
+                    }
+                }
+                this.PartJson = Arry;
+                this.CountMoney();
+            },
+
+            GetAll(){
+                this.PartJson = PartJson;
+                this.CountMoney();
+            },
+
+            FilterSeach(par,par2){
+                var Arry = [];
+                for (var i = 0; i < PartJson.length; i++) {
+                    if(PartJson[i].type == par || PartJson[i].type == par2){
+                        Arry.push(PartJson[i])
+                    }
+                }
+                this.PartJson = Arry;
+                this.CountMoney();
+            },
+
+            FilterMoneyFrom(par){
+                var Arry = [];
+                for (var i = 0; i < PartJson.length; i++) {
+                    if(PartJson[i].moneyfrom == par){
+                        Arry.push(PartJson[i])
+                    }
+                }
+                this.PartJson = Arry;
+                this.CountMoney();
             }
         },
-        created(){
+        created() {
             this.CountMoney();
         }
     })
-
 </script>
 
 
