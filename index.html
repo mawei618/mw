@@ -12,9 +12,10 @@
 
         .All {
             width: 300px;
-            height: 400px;
+            height: 350px;
             overflow: scroll;
             margin: auto;
+            border: 1px solid #ccc;
         }
     </style>
 </head>
@@ -45,7 +46,7 @@
         <div class="All">
             <div v-for="(item,index) in PartJson">
                 <p>
-                    <span>{{index}}</span>-----
+                    <span>{{index + 1}}</span>-----
                     <span>{{item.name}}</span>-----
                     <span>{{item.money}}</span>-----
                     <span v-if="item.moneyfrom == 0">微信</span>
