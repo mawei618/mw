@@ -16,7 +16,7 @@
 
         .All {
             width: 300px;
-            height: 350px;
+            height: 500px;
             overflow: scroll;
             margin: auto;
             border: 1px solid #ccc;
@@ -42,27 +42,9 @@
 
 <body>
     <div id="app">
+        <h4>共待还：{{ToltleMoney}}元({{PartJson.length}}人)</h4>
 
-        <input type="text" placeholder="名字搜索" v-model="SearchText"><button @click="Search">搜索</button>
 
-        <div class="Filter">
-            <p>交际圈筛选</p>
-            <button @click="GetAll">所有</button>
-            <button @click="FilterSeach(0)">村里</button>
-            <button @click="FilterSeach(1)">初中同学</button>
-            <button @click="FilterSeach(2)">石家庄同学</button>
-            <button @click="FilterSeach(3,4)">保定北京</button>
-        </div>
-
-        <div class="Filter">
-            <p>礼金来源</p>
-            <button @click="FilterMoneyFrom(0)">微信</button>
-            <button @click="FilterMoneyFrom(1)">支付宝</button>
-            <button @click="FilterMoneyFrom(2)">QQ</button>
-            <button @click="FilterMoneyFrom(3)">现金</button>
-        </div>
-        <h4>共收入：{{ToltleMoney}}元({{PartJson.length}}人)</h4>
-        <a href="./list.html">待还列表</a>
         <div class="All">
             <div v-for="(item,index) in PartJson">
                 <p>
@@ -86,7 +68,7 @@
         el: '#app',
         data: {
             SearchText: "",
-            PartJson: PartJson,
+            PartJson: [],
             ToltleMoney: "",
         },
         methods: {
@@ -98,57 +80,20 @@
                 this.ToltleMoney = money;
             },
 
-            Search() {
-                var Arry = [];
-                for (var i = 0; i < PartJson.length; i++) {
-                    if (PartJson[i].name == this.SearchText) {
-                        Arry.push(PartJson[i])
-                    }
-                }
-                this.PartJson = Arry;
-                this.CountMoney();
-            },
-
-            GetAll() {
-                this.PartJson = PartJson;
-                this.CountMoney();
-            },
-
-            FilterSeach(par, par2) {
-                var Arry = [];
-                for (var i = 0; i < PartJson.length; i++) {
-                    if (PartJson[i].type == par || PartJson[i].type == par2) {
-                        Arry.push(PartJson[i])
-                    }
-                }
-                this.PartJson = Arry;
-                this.CountMoney();
-            },
-
-            FilterMoneyFrom(par) {
-                var Arry = [];
-                for (var i = 0; i < PartJson.length; i++) {
-                    if (PartJson[i].moneyfrom == par) {
-                        Arry.push(PartJson[i])
-                    }
-                }
-                this.PartJson = Arry;
-                this.CountMoney();
-            },
-
             returned() {
                 var money = 0;
+                var Arry = [];
                 for (var i = 0; i < PartJson.length; i++) {
                     if (PartJson[i].status == 1) {
+                        this.PartJson.push(PartJson[i]);
                         money += PartJson[i].money;
-                        console.log(PartJson[i].name +'---------' +PartJson[i].money)
                     }
                 }
-                console.log('待还 ' + money)
+
+                this.ToltleMoney = money;
             }
         },
         created() {
-            this.CountMoney();
             this.returned();
         }
     })
