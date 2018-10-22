@@ -24,7 +24,7 @@ var PartJson = [{
         name: "马士伟",
         moneyfrom: 3,
         type: 0,
-        status: 1,
+        status: 0,
         money: 200
     },
     {
