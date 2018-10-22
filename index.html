@@ -15,7 +15,7 @@
         }
 
         .All {
-            width: 300px;
+            width: 310px;
             height: 350px;
             overflow: scroll;
             margin: auto;
@@ -66,9 +66,9 @@
         <div class="All">
             <div v-for="(item,index) in PartJson">
                 <p>
-                    <span class="IndexSpan">{{index + 1}}</span>-----
-                    <span class="NameSpan">{{item.name}}</span>-----
-                    <span class="MoneySpan">{{item.money}}</span>-----
+                    <span class="IndexSpan">{{index + 1}}</span>---
+                    <span class="NameSpan">{{item.name}}</span>---
+                    <span class="MoneySpan">{{item.money}}</span>---
                     <span class="FromSpan" v-if="item.moneyfrom == 0">微信</span>
                     <span class="FromSpan" v-if="item.moneyfrom == 1">支付宝</span>
                     <span class="FromSpan" v-if="item.moneyfrom == 2">QQ</span>
@@ -141,10 +141,10 @@
                 for (var i = 0; i < PartJson.length; i++) {
                     if (PartJson[i].status == 1) {
                         money += PartJson[i].money;
-                        console.log(PartJson[i].name +'---------' +PartJson[i].money)
+                        // console.log(PartJson[i].name +'---------' +PartJson[i].money)
                     }
                 }
-                console.log('待还 ' + money)
+                // console.log('待还 ' + money)
             }
         },
         created() {
